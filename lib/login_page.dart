@@ -21,13 +21,14 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
           title: const Text('Login Page'),
+          backgroundColor: Colors.green[900],
         ),
           body: Column(
         children: [
 
           Center(child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Image.asset('assets/login.png',scale: 3.00,),
+            child: Image.asset('assets/enter.png',scale: 3.00,),
           )),
            Padding(
             padding:  const EdgeInsets.all(7.0),
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: emailController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.mail),
+                prefixIcon: Icon(Icons.mail,color: Colors.green,),
                 hintText:'Enter Your Email',
                 
               ),
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: pwdController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock,color: Colors.green,),
                 hintText:'Enter Your Password',
                 
                 
@@ -56,6 +57,29 @@ class _LoginPageState extends State<LoginPage> {
               autofocus: false,
               obscureText: true,
             ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(child: const Text("Forget Password"),
+              onPressed: (){
+                showDialog(context: context, 
+                builder: 
+                (BuildContext context) => AlertDialog(
+          title: const Text('Forget Password?!'),
+          content: Text('Try to register again and then login with your new credentials :)'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Ok', style: TextStyle(color: Colors.green),),
+            ),
+          ],
+                ),
+                );
+
+
+              
+              }),
           ),
 
           Center(
@@ -82,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(color: Colors.green),),
             ),
           ],
                 ),

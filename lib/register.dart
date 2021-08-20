@@ -32,7 +32,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:const Text('Register Page'),),
+      appBar: AppBar(title:const Text('Register Page'),
+      backgroundColor: Colors.green[900],),
 
       body: SingleChildScrollView(
               child: Column(children: [
@@ -48,7 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: nameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(Icons.person,color: Colors.green,),
                   hintText:'Enter Your Name',
                   
                 ),
@@ -61,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: mobController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.phone),
+                  prefixIcon: Icon(Icons.phone,color: Colors.green,),
                   hintText:'Enter Your Mobile Number',
                   
                 ),
@@ -74,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: emailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.mail),
+                  prefixIcon: Icon(Icons.mail,color: Colors.green,),
                   hintText:'Enter Your Email',
                   
                 ),
@@ -87,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: pwdController,
                 decoration:const InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.password),
+                  prefixIcon: Icon(Icons.password,color: Colors.green,),
                   hintText:'Create Password',
                   
                 ),

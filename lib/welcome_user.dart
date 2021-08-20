@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minor_project/add_address.dart';
+import 'package:minor_project/choose_quiz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './user_data.dart';
 
 class WelcomeUser extends StatefulWidget {
   const WelcomeUser({ Key? key }) : super(key: key);
@@ -13,14 +14,22 @@ class _WelcomeUserState extends State<WelcomeUser> {
   static String name="";
   static String mob="";
   static String email="";
-  static String city="";
-  static String state="";
-  static String pincode="";
+  static String username="";
+//here
+  _WelcomeUserState(){
 
+  MySharedPreferences.instance
+        .getStringValue("name")
+        .then((value) => setState(() {
+              username = value;
+            }));
+  }
+//here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:const Text('Welcome Page'),),
+      appBar: AppBar(title:const Text('Let\'s Play Quiz'),
+      backgroundColor: Colors.green[900],),
 
       body: Center(
         child: Column(children: [
@@ -29,24 +38,19 @@ class _WelcomeUserState extends State<WelcomeUser> {
             child: Image.asset('assets/user.png', scale: 3.0,),
           ),
 
-          const Padding(
-            padding: EdgeInsets.only(bottom:15.0),
-            child: Text("Welcome...", style: TextStyle(fontSize: 20.00),),
+          Padding(
+            padding: const EdgeInsets.only(bottom:15.0),
+            child: Text("Welcome, $username.", style: const TextStyle(fontSize: 20.00),),
           ),
 
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(onPressed: (){
 
-            }, child: const Text("Razorpay")),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(onPressed: (){
               Navigator.push(context, 
-              MaterialPageRoute(builder: (context)=>const AddAddress()));
-            }, child: const Text("Add/Update Address")),
+              MaterialPageRoute(builder: (context)=>const Choose()));
+
+            }, child: const Text("Play Quiz")),
           ),
 
            Padding(
@@ -56,9 +60,6 @@ class _WelcomeUserState extends State<WelcomeUser> {
               name = "Name:"+prefs.getString('name')!;
               mob = "Mobile Number:"+prefs.getString('mob')!;
               email = "Email:"+prefs.getString('email')!;
-              city = "City:"+prefs.getString('city')!;
-              state = "State:"+prefs.getString('state')!;
-              pincode = "Pincode:"+prefs.getString('pincode')!;
 
               showDialog(context: context, 
                 builder: 
@@ -66,19 +67,14 @@ class _WelcomeUserState extends State<WelcomeUser> {
           title: const Text('Your Profile',style: TextStyle(fontSize:22.0),),
   
           content: SizedBox(
-            height: 200,
+            height: 75,
             width: 300,
             child: Column(
               
               children: [
                 Text(_WelcomeUserState.name),
                 Text(_WelcomeUserState.mob),
-                Text(_WelcomeUserState.email),
-                const Text("Address:",style: TextStyle(fontSize:19.0),),
-                Text(_WelcomeUserState.city),
-                Text(_WelcomeUserState.state),
-                Text(_WelcomeUserState.pincode),
-                 
+                Text(_WelcomeUserState.email),             
               ],
             ),
           ),
@@ -86,7 +82,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(color:Colors.green),),
             ),
           ],
                 ),
@@ -103,7 +99,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.green,
               ),
               
               child: Text('Your Burger Menu',style: TextStyle(fontSize:20.0),),
@@ -138,11 +134,11 @@ class _WelcomeUserState extends State<WelcomeUser> {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false),
-              child: const Text('Yes'),
+              child: const Text('Yes', style: TextStyle(color: Colors.green),),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, 'No'),
-              child: const Text('No'),
+              child: const Text('No', style: TextStyle(color: Colors.green),),
             ),
           ],
                 ),
