@@ -4,7 +4,7 @@ import 'package:minor_project/py_quiz.dart';
 import 'package:minor_project/quiz_page.dart';
 
 class Choose extends StatefulWidget {
-  const Choose({ Key? key }) : super(key: key);
+  const Choose({ Key key }) : super(key: key);
 
   @override
   _ChooseState createState() => _ChooseState();

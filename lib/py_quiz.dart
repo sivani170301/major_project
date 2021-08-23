@@ -1,16 +1,34 @@
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:minor_project/model.dart';
+import 'package:minor_project/user_data.dart';
 
 class PythonQuiz extends StatefulWidget {
-  const PythonQuiz({ Key? key }) : super(key: key);
+  const PythonQuiz({ Key key }) : super(key: key);
 
   @override
   _PythonQuizState createState() => _PythonQuizState();
 }
 
 class _PythonQuizState extends State<PythonQuiz> {
+  int ch=2;
+
+  int hi_score=0;
+  _PythonQuizState(){
+    MySharedPreferences.instance
+        .getIntegerValue("py_hs")
+        .then((value) => setState(() {
+          print(value);
+              hi_score=value;
+            }));
+  }
+  Future init(int score) async {
+
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setInt('py_hs',score);
+
+  }
 
   int _counter = 0;
 
@@ -46,8 +64,6 @@ class _PythonQuizState extends State<PythonQuiz> {
 
    checkWin(int userChoice , BuildContext context )
 {
-  
-
     if(userChoice==ques[_counter].crct_opt)
  {  
      score= score+1;
@@ -55,7 +71,6 @@ class _PythonQuizState extends State<PythonQuiz> {
       duration: Duration(milliseconds : 400),
       backgroundColor: Colors.green,
       content: Text("Correct!"),);
-    //Scaffold.of(context).showSnackBar(snackbar);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
  }
  else 
@@ -66,7 +81,6 @@ class _PythonQuizState extends State<PythonQuiz> {
       backgroundColor: Colors.red,
       content: Text("Incorrect!"),
       );
-    //Scaffold.of(context).showSnackBar(snackbar);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
  }
 
@@ -80,6 +94,10 @@ class _PythonQuizState extends State<PythonQuiz> {
     }
     
     else if(_counter==9){
+      if(score>hi_score){
+        init(score);
+      }
+      
       Navigator.pop(context);
       showDialog(context: context, 
                 builder: 
@@ -140,7 +158,6 @@ class _PythonQuizState extends State<PythonQuiz> {
                     
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: <Widget>[
-                         
                          Center(child: Text(ques[_counter].q)),
                          
 
@@ -157,12 +174,15 @@ class _PythonQuizState extends State<PythonQuiz> {
                    _incrementCounter();
 
                  }, child: Text(options[_counter][0])),
-
                  ElevatedButton(onPressed: (){
                    checkWin(1, context);
                    _incrementCounter();
 
-                 }, child: Text(options[_counter][1])),
+                 }, 
+                 
+                 child: 
+                 
+                 Text(options[_counter][1])),
 
                ],),
 
@@ -174,7 +194,6 @@ class _PythonQuizState extends State<PythonQuiz> {
                    _incrementCounter();
 
                  }, child: Text(options[_counter][2])),
-
                  ElevatedButton(onPressed: (){
                    checkWin(3, context);
                    _incrementCounter();

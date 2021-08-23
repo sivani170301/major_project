@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:minor_project/high_score.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({ Key? key }) : super(key: key);
+  const RegisterPage({ Key key }) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -100,6 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: ElevatedButton(onPressed: (){
+                HighScore.setHigh1();
                 init();
                 Navigator.pop(context);
 

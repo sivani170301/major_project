@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:minor_project/user_data.dart';
 import "./model.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Quiz extends StatefulWidget {
-  const Quiz({ Key? key }) : super(key: key);
+  const Quiz({ Key key }) : super(key: key);
 
   @override
   _QuizState createState() => _QuizState();
 }
 
 class _QuizState extends State<Quiz> {
+  int hi_score=0;
+  _QuizState(){
+    MySharedPreferences.instance
+        .getIntegerValue("java_hs")
+        .then((value) => setState(() {
+          print(value);
+              hi_score=value;
+            }));
+  }
+  Future init(int score) async {
+
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setInt('java_hs',score);
+
+  }
 
    int _counter = 0;
 
@@ -53,7 +71,6 @@ class _QuizState extends State<Quiz> {
       duration: Duration(milliseconds : 400),
       backgroundColor: Colors.green,
       content: Text("Correct!"),);
-    //Scaffold.of(context).showSnackBar(snackbar);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
  }
  else 
@@ -64,13 +81,12 @@ class _QuizState extends State<Quiz> {
       backgroundColor: Colors.red,
       content: Text("Incorrect!"),
       );
-    //Scaffold.of(context).showSnackBar(snackbar);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
  }
 
 }
 
-  void _incrementCounter() {
+  Future<void> _incrementCounter() async {
     if(_counter<9){
     setState(() {
       _counter = _counter + 1;
@@ -78,6 +94,9 @@ class _QuizState extends State<Quiz> {
     }
     
     else if(_counter==9){
+      if(score>hi_score){
+        init(score);
+      }
       Navigator.pop(context);
       showDialog(context: context, 
                 builder: 
@@ -106,6 +125,7 @@ class _QuizState extends State<Quiz> {
       ),
 
       body: Container(
+        
         child: Column(children: [
           Padding(padding: EdgeInsets.only(top:20)),
 

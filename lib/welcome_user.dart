@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:minor_project/choose_quiz.dart';
+import 'package:minor_project/view_score.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './user_data.dart';
 
 class WelcomeUser extends StatefulWidget {
-  const WelcomeUser({ Key? key }) : super(key: key);
+  const WelcomeUser({ Key key }) : super(key: key);
 
   @override
   _WelcomeUserState createState() => _WelcomeUserState();
@@ -15,7 +16,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
   static String mob="";
   static String email="";
   static String username="";
-//here
+
   _WelcomeUserState(){
 
   MySharedPreferences.instance
@@ -24,7 +25,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
               username = value;
             }));
   }
-//here
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,13 +54,23 @@ class _WelcomeUserState extends State<WelcomeUser> {
             }, child: const Text("Play Quiz")),
           ),
 
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(onPressed: (){
+
+              Navigator.push(context, 
+              MaterialPageRoute(builder: (context)=>const ViewScore()));
+
+            }, child: const Text("View High Score")),
+          ),
+
            Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
-              name = "Name:"+prefs.getString('name')!;
-              mob = "Mobile Number:"+prefs.getString('mob')!;
-              email = "Email:"+prefs.getString('email')!;
+              name = "Name:"+prefs.getString('name');
+              mob = "Mobile Number:"+prefs.getString('mob');
+              email = "Email:"+prefs.getString('email');
 
               showDialog(context: context, 
                 builder: 

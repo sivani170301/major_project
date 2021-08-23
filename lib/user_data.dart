@@ -10,6 +10,11 @@ class MySharedPreferences {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
     myPrefs.setString(key, value);
   }
+
+  setIntegerValue(String key, int value) async {
+SharedPreferences myPrefs = await SharedPreferences.getInstance();
+myPrefs.setInt(key, value);
+}
  
   Future<String> getStringValue(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
@@ -20,6 +25,11 @@ class MySharedPreferences {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
     return myPrefs.containsKey(key);
   }
+
+  Future<int> getIntegerValue(String key) async {
+SharedPreferences myPrefs = await SharedPreferences.getInstance();
+return myPrefs.getInt(key) ?? 0;
+}
  
   removeValue(String key) async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();

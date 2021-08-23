@@ -3,7 +3,7 @@ import 'package:minor_project/welcome_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({ Key? key }) : super(key: key);
+  const LoginPage({ Key key }) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
